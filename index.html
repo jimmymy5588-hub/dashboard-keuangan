@@ -713,24 +713,10 @@ const catEmoji = {
 function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions)); }
 function load() {
   try { transactions = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { transactions = []; }
-  if (!transactions.length) seedData();
 }
 
 function seedData() {
-  const now = new Date();
-  const y = now.getFullYear(), m = now.getMonth();
-  transactions = [
-    { id: 1, jenis:'masuk', nama:'Gaji Bulan Ini', kat:'Gaji', amt:7500000, tgl: new Date(y,m,1).toISOString().split('T')[0], catatan:'' },
-    { id: 2, jenis:'masuk', nama:'Freelance Web Design', kat:'Freelance', amt:1500000, tgl: new Date(y,m,5).toISOString().split('T')[0], catatan:'' },
-    { id: 3, jenis:'keluar', nama:'Belanja Bulanan', kat:'Makanan', amt:850000, tgl: new Date(y,m,7).toISOString().split('T')[0], catatan:'Supermarket' },
-    { id: 4, jenis:'keluar', nama:'Bensin & Parkir', kat:'Transport', amt:320000, tgl: new Date(y,m,10).toISOString().split('T')[0], catatan:'' },
-    { id: 5, jenis:'keluar', nama:'Listrik & Internet', kat:'Tagihan', amt:450000, tgl: new Date(y,m,12).toISOString().split('T')[0], catatan:'' },
-    { id: 6, jenis:'keluar', nama:'Makan Siang Kantor', kat:'Makanan', amt:480000, tgl: new Date(y,m,15).toISOString().split('T')[0], catatan:'' },
-    { id: 7, jenis:'keluar', nama:'Netflix & Spotify', kat:'Hiburan', amt:150000, tgl: new Date(y,m,18).toISOString().split('T')[0], catatan:'' },
-    { id: 8, jenis:'keluar', nama:'Baju & Sepatu', kat:'Belanja', amt:580000, tgl: new Date(y,m,20).toISOString().split('T')[0], catatan:'' },
-    { id: 9, jenis:'keluar', nama:'Ojek Online', kat:'Transport', amt:230000, tgl: new Date(y,m,22).toISOString().split('T')[0], catatan:'' },
-    { id:10, jenis:'keluar', nama:'Obat & Vitamin', kat:'Kesehatan', amt:180000, tgl: new Date(y,m,24).toISOString().split('T')[0], catatan:'' },
-  ];
+  transactions = [];
   save();
 }
 
@@ -980,11 +966,11 @@ function deleteTxn(id) {
 }
 
 function clearAll() {
-  if (!confirm('Reset semua data? Data contoh akan dimuat ulang.')) return;
+  if (!confirm('Reset semua data? Semua transaksi akan dihapus permanen.')) return;
   transactions = [];
-  seedData();
+  save();
   refresh();
-  showToast('🔄 Data telah direset');
+  showToast('🗑️ Semua data telah dihapus');
 }
 
 // ─── Modal ───────────────────────────────────────────────────────────────
